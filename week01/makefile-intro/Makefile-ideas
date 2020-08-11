@@ -1,0 +1,59 @@
+# Some ideas and examples for things you can do with Makefiles.
+
+FILES = Makefile defs.h main.c doname.c misc.c files.c dosys.c gram.y
+OBJECTS = main.o doname.o misc.o files.o dosys.o gram.o
+LIBES= -lld
+LINT = lint -p
+CFLAGS = -O
+LP = /usr/bin/lp
+
+# targets that don't create a file with the same name as the target are called "phony targets."
+# (not strictly required...)
+.PHONY: clean install count list kill
+
+make: $(OBJECTS)
+    $(CC) $(CFLAGS) $(OBJECTS) $(LIBES) -o make
+    @size make
+
+$(OBJECTS): defs.h
+
+clean:
+    rm -f *.o *~ core.* ~/core .DS_Store 
+
+install:
+    @size make /usr/bin/make
+    cp make /usr/bin/make && rm make
+
+lint: dosys.c doname.c files.c main.c misc.c gram.c
+    $(LINT) dosys.c doname.c files.c main.c misc.c gram.c
+
+count:
+    wc *.c
+
+list:
+    ls -l *.c *.h
+
+kill:
+    killall yalnixtty yalnixnet yalnix
+
+# Verify that the SW we need is installed...
+test:
+    @hash pandoc 2>/dev/null || { echo >&2 "I require pandoc but it's not installed.  Aborting."; exit 1; }
+    @hash pandoc-citeproc 2>/dev/null || { echo >&2 "I require pandoc-citeproc but it's not installed.  Aborting."; exit 1; }
+    @hash mypdfmerge.py 2>/dev/null || { echo >&2 "I require mypdfmerge.py but it's not installed.  Aborting."; exit 1; }
+    @hash pdflatex 2>/dev/null || { echo >&2 "I require pdflatex but it's not installed.  Aborting."; exit 1; }
+
+deploy:
+    if [ -d "${SITE}/" ]; then \
+        echo "$@: Found website directory @ $(SITE)"; \
+        for f in ${DEPLOYFILES}; do \
+            echo "copying $$f to $(SITE)/"; cp $$f $(SITE)/; \
+        done \
+        && echo "...Done!\n"; \
+        echo "$@: also updating data from refs.bib..."; \
+        python resources/pybibparse.py \
+        echo "...Done!\n"; \
+        cd $(SITE) && git add . && git commit -m "deploying public build artifacts --- auto 'make deploy'" && git push && echo "...updated!"; \
+    else echo "$@: $(SITE) not found"; \
+    fi
+
