@@ -23,37 +23,20 @@ cd cs460-code
 
 If you do this, you'll want to run `git pull` from time to time so you get updates to this repository. 
 
-## Future
-
-*If you are reading this message... Don't do anything below this point yet...*
-
 ### Fork vs. Clone
 
-You can fork this repository to your personal account at any point if you like. 
-You'd really only need to **fork** this public repository if you plan on contibuting back to *this* repository. 
-**Fork**ing this repository is not necessary if you just want to view or download examples from class.
+Cloning this repo is a super easy way to download THIS repo to your machine. 
+You can then run `git pull` to get updates (e.g., run it before/after each class). 
+Think of this like a little sandbox where you can keep up-to-date with class code. 
+
+Alternatively, you can `fork` this repo to your personal account. 
+You can then configure an upstream remote to pull in changes from this repo. 
+This will also allow you to exend the repo as you please without stepping on anything we do here. 
+It also gives you the opportunity to contribute code back to this repo (talk to me if you have ideas for said contributions).
+
+There may be instances where I ask you to contribute back to this repo (e.g., PA0). 
+
+At the end of the day, just remember:
 
 **DO NOT PUSH ANY OF YOUR PRIVATE CODE TO THIS REPOSITORY!**
 
-If you do choose to **fork** this repo, you can either edit files in your **fork** of this public repository via the web interface (this may be easier/safer). 
-Alternatively, you can **clone** your **fork**ed copy to your local system and work with it there. 
-
-### Register Your Private Repo
-
-We may adopt a similar approach to using Github repositories as CSCI 366 has done. Specifically:
-
-Please add a file to `/repos` named
-
-```
-<YOUR NET ID>.txt
-```
-
-that contains the git URL of your private repository, e.g.
-
-```bash
-git@github.com:1cg/cs460-fall2020-private.git
-```
-
-And then create a pull request against this repository.
-
-We will accept the pull request, and your private work repo will be registered for the class at that point.
