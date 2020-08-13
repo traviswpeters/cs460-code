@@ -29,9 +29,9 @@ Cloning this repo is a super easy way to download THIS repo to your machine.
 You can then run `git pull` to get updates (e.g., run it before/after each class). 
 Think of this like a little sandbox where you can keep up-to-date with class code. 
 
-Alternatively, you can `fork` this repo to your personal account. 
+Alternatively, you can fork this repo to your personal account. 
 You can then configure an upstream remote to pull in changes from this repo. 
-This will also allow you to exend the repo as you please without stepping on anything we do here. 
+This will also allow you to extend the repo as you please without stepping on anything we do here. 
 It also gives you the opportunity to contribute code back to this repo (talk to me if you have ideas for said contributions).
 
 There may be instances where I ask you to contribute back to this repo (e.g., PA0). 
