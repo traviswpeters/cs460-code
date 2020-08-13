@@ -67,7 +67,11 @@ Vagrant.configure("2") do |config|
     if ! grep -q 'LS_COLORS' ~/.bashrc; then
         echo "overriding some color settings..."
         curl -s https://gist.githubusercontent.com/traviswpeters/e392e571bfdfb1939a9f233b1bb47f68/raw/f6a1a21f3dc95107091f7ef29233e612c6aa058c/custom_shell_colors.sh -o .mycolors
-        cat .mycolors >> .bashrc
+        cat .mycolors >> ~/.bashrc
+        
+        # while we are at it...
+        echo 'colo desert' > ~/.vimrc
+        echo 'syntax on' >> ~/.vimrc
     fi
 
   SHELL
