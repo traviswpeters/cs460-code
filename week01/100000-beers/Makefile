@@ -6,7 +6,6 @@ CFLAGS = -g3 -W -Wall -std=c99
 
 $(TARGET): $(OBJS)
 
-
 .PHONY: clean
 
 clean:
