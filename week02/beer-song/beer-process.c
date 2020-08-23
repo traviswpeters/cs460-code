@@ -4,10 +4,14 @@
 static void PrintMessage(int i);
 static void GoToSleep(void);
 
-int main(void) {
-	int i = 100000;
+#define NBOTTLES 100000
 
-	while ( 1 ) {
+int main(void)
+{
+	int i = NBOTTLES;
+
+	while ( 1 )
+	{
 		PrintMessage( i );
 		GoToSleep();
 		i -= 1;
@@ -16,10 +20,12 @@ int main(void) {
 	return 0;
 }
 
-static void PrintMessage(int i) {
+static void PrintMessage(int i)
+{
 	printf("%d bottles of beer on the wall, %d bottles of beer. Take one down, pass it around...\n", i, i);
 }
 
-static void GoToSleep(void) {
+static void GoToSleep(void)
+{
 	sleep(1);
 }
