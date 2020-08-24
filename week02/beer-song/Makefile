@@ -9,4 +9,4 @@ $(TARGET): $(OBJS)
 .PHONY: clean
 
 clean:
-	$(RM) $(TARGET) $(OBJS)
+	$(RM) $(TARGET) $(OBJS)  *.o *.i *.s
