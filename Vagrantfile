@@ -4,8 +4,6 @@
 Vagrant.configure("2") do |config|
   # A few different VMs...
   config.vm.box = "hashicorp/bionic64"
-  #config.vm.box = "generic/ubuntu1804"
-  #config.vm.box = "generic/trusty32"
 
   # X-forwarding
   # Thanks, https://computingforgeeks.com/how-to-enable-and-use-ssh-x11-forwarding-on-vagrant-instances/
@@ -25,7 +23,7 @@ Vagrant.configure("2") do |config|
 
   # here, I sync the current directory (".") on my host machine with the VM (which can be located at "/home/vagrant/path/to/stuff")
   config.vm.synced_folder ".", "/home/vagrant/projects"
-  #config.vm.synced_folder "/Users/twp/projects/classes/msu-cs460-code", "/home/vagrant/code"
+  #config.vm.synced_folder "/path/on/host/file/system", "/home/vagrant/dir/on/guest"
 
   # Permissioned provisioning with a shell script.
   config.vm.provision "shell", inline: <<-SHELL
@@ -66,24 +64,21 @@ Vagrant.configure("2") do |config|
     # surpress login banner w/ motd
     touch ~/.hushlogin
 
-    # update ls & prompt colors
-    if ! grep -q 'LS_COLORS' ~/.bashrc; then
-        echo "overriding some color settings..."
-        curl -s https://gist.githubusercontent.com/traviswpeters/e392e571bfdfb1939a9f233b1bb47f68/raw/48171880af16ee99acf60e8f751b3de5b346b200/custom_shell_colors.sh -o .mycolors
-        cat .mycolors >> ~/.bashrc
+    # add hook in bashrc to grab updates to cs460 customizations and apply them.
+    if ! grep -q 'cs460customizations' ~/.bashrc; then
+cat >> ~/.bashrc <<EOL
 
-        # while we are at it...
-        echo 'colo desert' >> ~/.vimrc
-        echo 'syntax on' >> ~/.vimrc
+# fetch the most up-to-date cs460 customizations
+curl -sS https://raw.githubusercontent.com/traviswpeters/cs460-code/master/cs460customizations -o .cs460customizations
+
+# source our customizations
+if [ -f ~/.cs460customizations ]; then
+    source ~/.cs460customizations
+fi
+
+EOL
     fi
 
-    # update ulimit and core dump pattern for user's core dumps (a little hacky, but oh well...)
-    if ! grep -q 'ulimit -c' ~/.bashrc; then
-        echo "overriding core dump settings..."
-        echo '\n# overriding core dump settings' >> ~/.bashrc
-        echo 'ulimit -c unlimited' >> ~/.bashrc
-        echo 'sudo sysctl -w kernel.core_pattern=/home/vagrant/core > /dev/null 2>&1' >> ~/.bashrc
-    fi
   SHELL
 
   config.vm.provision "shell", inline: "echo All done! Now run: vagrant ssh"
