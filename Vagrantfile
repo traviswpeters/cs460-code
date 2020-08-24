@@ -25,7 +25,7 @@ Vagrant.configure("2") do |config|
 
   # here, I sync the current directory (".") on my host machine with the VM (which can be located at "/home/vagrant/path/to/stuff")
   config.vm.synced_folder ".", "/home/vagrant/projects"
-  config.vm.synced_folder "/Users/twp/projects/classes/msu-cs460-code", "/home/vagrant/code"
+  #config.vm.synced_folder "/Users/twp/projects/classes/msu-cs460-code", "/home/vagrant/code"
 
   # Permissioned provisioning with a shell script.
   config.vm.provision "shell", inline: <<-SHELL
