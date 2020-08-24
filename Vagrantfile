@@ -38,16 +38,16 @@ Vagrant.configure("2") do |config|
     apt-get upgrade -y
     apt-get install autoconf -y
 
-    # some useful installs
-    apt-get install vim -y  # editor
-    apt-get install git -y  # DVCS
-    apt-get install tree -y # enhanced commandline output
-
     # make sure we have our manuals...
     apt-get install man -y
     apt-get install manpages-dev -y
     apt-get install manpages-posix -y
     apt-get install manpages-posix-dev -y
+
+    # some useful installs
+    apt-get install vim -y  # editor
+    apt-get install git -y  # DVCS
+    apt-get install tree -y # enhanced commandline output
 
     # installs for OS assignments
     apt-get install gcc -y          # compiler
