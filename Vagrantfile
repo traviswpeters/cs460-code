@@ -7,13 +7,13 @@ Vagrant.configure("2") do |config|
   #config.vm.box = "generic/ubuntu1804"
   #config.vm.box = "generic/trusty32"
 
-  # X-forwarding 
+  # X-forwarding
   # Thanks, https://computingforgeeks.com/how-to-enable-and-use-ssh-x11-forwarding-on-vagrant-instances/
   config.ssh.forward_agent = true
-  config.ssh.forward_x11 = true  
+  config.ssh.forward_x11 = true
 
   config.vm.hostname = "vbox"
-  
+
   config.vm.provider 'virtualbox' do |vb|
     vb.gui = false
     vb.customize ['modifyvm', :id, '--name', 'DevBox460']
@@ -43,6 +43,12 @@ Vagrant.configure("2") do |config|
     apt-get install git -y  # DVCS
     apt-get install tree -y # enhanced commandline output
 
+    # make sure we have our manuals...
+    apt-get install man -y
+    apt-get install manpages-dev -y
+    apt-get install manpages-posix -y
+    apt-get install manpages-posix-dev -y
+
     # installs for OS assignments
     apt-get install gcc -y          # compiler
     apt-get install gdb -y          # debugger
@@ -65,7 +71,7 @@ Vagrant.configure("2") do |config|
         echo "overriding some color settings..."
         curl -s https://gist.githubusercontent.com/traviswpeters/e392e571bfdfb1939a9f233b1bb47f68/raw/f6a1a21f3dc95107091f7ef29233e612c6aa058c/custom_shell_colors.sh -o .mycolors
         cat .mycolors >> ~/.bashrc
-        
+
         # while we are at it...
         echo 'colo desert' >> ~/.vimrc
         echo 'syntax on' >> ~/.vimrc
