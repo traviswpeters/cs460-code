@@ -78,7 +78,7 @@ In your forked copy of the class repo (the public version), please add a file to
 with the git URL of your private repository.
 
 For example, if I were a student with the NetID `W43m513` and my GitHub username was `studentIAm`
-I would add a file named `W43m513.txt` to `/repos/` with the following line:
+I would add a file named `W43m513.txt` to `/repos` with the following line:
 ```
 git@github.com:studentIAm/csci-460-fall2020-private.git
 ```
