@@ -43,7 +43,7 @@ config.vm.synced_folder "/Users/myHome/dir/where/I/work/cs460-code", "/home/vagr
 # (E.g., '~' for 'home directory). Try at your own risk...
 ```
 
-Now when we access our VM we there should be a directory (`~/code`) in the VM that is syncronized between the host and guest.
+Now when we access our VM there should be a directory (`~/code`) in the VM that is syncronized between the host and guest.
 
 ### Fork vs. Clone
 
