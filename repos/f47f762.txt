@@ -1,1 +1,1 @@
-git@github.com:nardielloam7451/csci-460-code-private.git
+git@github.com:nardielloam7451/cs460-code-private.git
