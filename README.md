@@ -19,6 +19,7 @@ Below I outline how you can setup two repositories: one private and one public.
 ### Getting Started
 
 1. Please follow the steps in the _**Setup Your PRIVATE Repo (via Clone)**_ section below.
+   - Create an SSH identity (see _**Setup Your SSH Identity**_ below).
 2. Please follow the steps in the _**Setup Your PUBLIC Repo (via Fork)**_ section below.
 3. Please follow the steps in the _**Register Your PRIVATE Repo (via Pull Request)**_ section below.
 4. Check out additional info in the _**Other Things To Know**_ section.
@@ -96,14 +97,7 @@ This is to avoid confusion between your public and private repos.
 If this applies to you (i.e., you are prone to confusion), you should know that there is no need to have the public repo on your local system;
 you can edit files in the public repository via the web interface and submit pull requests there too.
 
-### Programming Assignments (PA)
-
-Once you've created your **private repository**, you can create separate directories for each assignment.
-Each programming assignment should be kept in its own directory (`/pa0`, `/pa1`, `/pa2`, etc.).
-Please do your solo work in the appropriate homework directory.
-Remember, **DO NOT PUSH YOUR INDIVIDUAL WORK CODE TO THE PUBLIC REPOSITORY**
-
-### Setup An SSH Identity
+### Setup Your SSH Identity
 
 Setting up an SSH identity makes it possible for you to interact with GitHub repos via the command line
 without having to re-enter your password all the time.
@@ -111,20 +105,17 @@ If you've already setup an SSH key to have passwordless access to GitHub on the 
 You can check to see if you have a key setup by looking in your `~/.ssh/` directory.
 If there is nothing there, or if you don't have a key dedicated to using with GitHub, you should read on.
 
-> **NOTE: **You _should_ be able to run the following commands as-is, but know that I haven't tested how this works on Windows...
+You should then be able to copy/paste the **public key** to GitHub.
 
-```bash
-# make sure you are in your ~/.ssh/ folder
-# (this is where you will stash SSH keys, a config file, etc.)
-cd ~/.ssh
+This article has more details on that process:
+[Adding a new SSH key to your GitHub account](https://docs.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account)
 
-# generate your SSH keypair...
-ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa_github -C "id_rsa_github is an SSH key specifically for GitHub work"
-# You can hit enter twice to indicate "no passphrase".
-```
+### Programming Assignments (PA)
 
-> **SECURITY TIP:** In theory you should use a non-empty passphrase to protect your SSH keys.
-> In practice we may decide that usability/access outweighs some threats/risks...
+Once you've created your **private repository**, you can create separate directories for each assignment.
+Each programming assignment should be kept in its own directory (`/pa0`, `/pa1`, `/pa2`, etc.).
+Please do your solo work in the appropriate homework directory.
+Remember, **DO NOT PUSH YOUR INDIVIDUAL WORK CODE TO THE PUBLIC REPOSITORY**
 
 ### Class Code By The Week
 
@@ -145,7 +136,7 @@ Once you know you've cloned the repo to your local system you can add a line lik
 ```bash
 config.vm.synced_folder "/Users/myHome/dir/where/I/work/cs460-code", "/home/vagrant/code"
 # Note that we are using the absolute path here.
-# I've had mixed results with using symbols that expand  to the correct directory
+# I've had mixed results with using symbols that expand to the correct directory
 # (E.g., '~' for 'home directory). Try at your own risk...
 ```
 
