@@ -2,7 +2,7 @@
 
 This is the base upstream repository for CSCI 460.
 
-This repository is mostly intended to contain examples from class and serve as an example Github repository for students.
+This repository is mostly intended to contain examples from class and serve as an example GitHub repository for students.
 
 Also, to use GitHub effectively in this class we require a rather particular way of setting things up.
 Below I outline how you can setup two repositories: one private and one public.
@@ -23,7 +23,7 @@ Below I outline how you can setup two repositories: one private and one public.
 3. Please follow the steps in the _**Register Your PRIVATE Repo (via Pull Request)**_ section below.
 4. Check out additional info in the _**Other Things To Know**_ section.
 
-> **NOTE:** My examples are all based on a unix-y terminal running atop macOS.
+> **NOTE:** My examples are all based on a Unix-y terminal running atop macOS.
 > If you use a different OS (e.g., Windows) your mileage may vary.
 
 # Setup Your PRIVATE Repo (via Clone)
@@ -47,7 +47,7 @@ $ git remote set-url origin git@github.com:<YOUR-GITHUB-USERNAME>/csci-460-fall2
 $ git remote add upstream https://github.com/traviswpeters/cs460-code.git
 ```
 
-You now have a private copy of the repository on github.
+You now have a private copy of the repository on GitHub.
 You can push and pull to this repository with the standard `git pull` and `git push` commands.
 
 When you want to get an update from the public class repository you can run this command:
@@ -60,7 +60,7 @@ You might want to do this at least each week, but likely before each class.
 
 # Setup Your PUBLIC Repo (via Fork)
 
-**Your public repository** can be used for contibuting back to the class repository and
+**Your public repository** can be used for contributing back to the class repository and
 to register your private repository.
 Please fork this repository to your personal account.
 
@@ -91,7 +91,7 @@ We will accept the pull request, and your private work repo will be registered f
 
 ### Word of Caution
 
-In CSCI 366 it is highly recommended that students **DO NOT** clone their public fork of this respoitory to their local system.
+In CSCI 460 it is highly recommended that students **DO NOT** clone their public fork of this repository to their local system.
 This is to avoid confusion between your public and private repos.
 If this applies to you (i.e., you are prone to confusion), you should know that there is no need to have the public repo on your local system;
 you can edit files in the public repository via the web interface and submit pull requests there too.
@@ -99,7 +99,7 @@ you can edit files in the public repository via the web interface and submit pul
 ### Programming Assignments (PA)
 
 Once you've created your **private repository**, you can create separate directories for each assignment.
-Each programming assignment should be kept in it's own directory (`/pa0`, `/pa1`, `/pa2`, etc.).
+Each programming assignment should be kept in its own directory (`/pa0`, `/pa1`, `/pa2`, etc.).
 Please do your solo work in the appropriate homework directory.
 Remember, **DO NOT PUSH YOUR INDIVIDUAL WORK CODE TO THE PUBLIC REPOSITORY**
 
@@ -140,16 +140,16 @@ This file contains the configuration for the VM we are using in this class.
 ### "Synced Folder" (a.k.a. "Shared Folder")
 
 In class we've talked about using _shared folders_ to share files between your host OS and your guest OS.
-Once you know you've cloned a repo to your local system you can add a line like this to your `Vagrantfile`:
+Once you know you've cloned the repo to your local system you can add a line like this to your `Vagrantfile`:
 
 ```bash
 config.vm.synced_folder "/Users/myHome/dir/where/I/work/cs460-code", "/home/vagrant/code"
 # Note that we are using the absolute path here.
-# I've had mixed results with using symbols that exapand to the correct directory
+# I've had mixed results with using symbols that expand  to the correct directory
 # (E.g., '~' for 'home directory). Try at your own risk...
 ```
 
-Now when we access our VM, there should be a directory (`~/code`) in the VM that is syncronized between the host and guest.
+Now when we access our VM, there should be a directory (`~/code`) in the VM that is synchronized between the host and guest.
 
 This will enable you to, for example, edit code in your preferred editor on your host,
 and compile/run code on the guest.
