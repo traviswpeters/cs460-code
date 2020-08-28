@@ -10,9 +10,9 @@ int main(void)
 {
 	int i = NBOTTLES;
 
-	while ( 1 )
+	while (1)
 	{
-		PrintMessage( i );
+		PrintMessage(i);
 		GoToSleep();
 		i -= 1;
 	}

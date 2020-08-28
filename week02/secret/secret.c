@@ -17,6 +17,7 @@
 
 void encode(char* line, FILE* optr) {
     char key[127] = "efghijklmnopqrstuvwxyzabcd";
+    // a = 97
 
     for (unsigned int i = 0; i < strlen(line); ++i) {
         int ascii_place = line[i];
@@ -39,8 +40,7 @@ int main(void) {
     if (infptr == NULL) {
         printf("ERROR: could not open input file\n");
         return(1);
-    }
-    else {
+    } else {
         while (fgets(line, MAX_LINE_SIZE, infptr) != NULL) {
             fprintf(outfptr, "%s", line);
             encode(line, outfptr);
