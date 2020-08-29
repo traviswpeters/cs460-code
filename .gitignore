@@ -1,3 +1,6 @@
 # ignore a local directory
 code-archive/
 .DS_Store
+*.o
+*.i
+*~
