@@ -150,3 +150,16 @@ This enables you to delete (`vagrant destroy`) your VM, create a new VM, and pic
 
 _**WARNING:**_ This means you need to make sure you never save files that you want to keep directly to the VM.
 Important files should be stored on the host and version-controlled with Git/GitHub.
+
+### Troubleshooting
+
+We have encountered a few issues with VMs not compiling software correctly, etc.
+
+If this happens to you, I first recommend re-running the Vagrantfile's provisioning steps and rebooting your VM.
+
+This can be done by running the following commands from your host OS:
+
+```bash
+vagrant provision
+vagrant reload
+```
