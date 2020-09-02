@@ -151,15 +151,49 @@ This enables you to delete (`vagrant destroy`) your VM, create a new VM, and pic
 _**WARNING:**_ This means you need to make sure you never save files that you want to keep directly to the VM.
 Important files should be stored on the host and version-controlled with Git/GitHub.
 
-### Troubleshooting
+# Troubleshooting
+
+### A First Step To Resolving VM Issues
 
 We have encountered a few issues with VMs not compiling software correctly, etc.
 
 If this happens to you, I first recommend re-running the Vagrantfile's provisioning steps and rebooting your VM.
 
-This can be done by running the following commands from your host OS:
+This can be done by running the following commands from your host OS in the directory with your Vagrantfile:
 
 ```bash
 vagrant provision
 vagrant reload
 ```
+
+If something seems out of place, try this step.
+
+> _This is the VM/vagrant version of "Have you tried turning it off and on again?" :-)_
+
+A more extreme approach
+_- which should be totally acceptable so long as you keep all of your files that you want to keep in a synced/shared folder! -_
+is to run:
+
+```bash
+vagrant destroy
+vagrant up
+```
+
+### Time Sync Issues
+
+If you don't have the most up-to-date version of [_Guest Additions_](https://www.virtualbox.org/manual/ch04.html) installed for your VM,
+it is possible that your VM may "drift" and become out of sync with the host.
+Put another way, it will be one time on your host OS and another time on your guest OS.
+This can be problematic for software that uses time / the timestamps of files in its logic.
+(Think `make` and Makefiles.)
+
+There is a nifty vagrant plugin I use to help keep my VMs configured with the correct version of Guest Additions.
+
+```bash
+vagrant plugin install vagrant-vbguest
+```
+
+Then reboot the VM.
+
+This should work. If you still have issues with time syncing between your host/guest,
+DM me and we can discuss more - I have a few other tricks up my sleeve :-)
