@@ -4,3 +4,4 @@ code-archive/
 *.o
 *.i
 *~
+.vagrant
