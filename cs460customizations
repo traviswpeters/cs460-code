@@ -38,3 +38,7 @@ alias rm='rm -i'
 alias mv='mv -i'
 alias mygcc='gcc -Wall -pedantic -std=c11 -ggdb'
 alias myvalgrind='valgrind --leak-check=full --show-leak-kinds=all'
+
+# set the timezone...
+sudo timedatectl set-timezone America/Denver
+# to verify, run: timedatectl
