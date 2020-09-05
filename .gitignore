@@ -1,3 +1,8 @@
 # ignore a local directory
 code-archive/
 .DS_Store
+*.o
+*.i
+*~
+.vagrant
+CS58_CODE_EXAMPLES
