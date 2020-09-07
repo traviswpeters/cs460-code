@@ -1,1 +1,1 @@
-https://github.com/kittenpuppet/cscci-460-fall2020-private.git
+git@github.com:kittenpuppet/csci-460-fall2020-private.git
