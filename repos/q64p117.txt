@@ -1,1 +1,1 @@
-https://github.com/kabindar/csci-460-fall2020-private.git
+git@github.com:kabindar/csci-460-fall2020-private.git
