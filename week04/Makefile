@@ -4,61 +4,68 @@ SRCS=$(wildcard *.c)
 OBJS=$(SRCS:.c=.o)
 
 # executables
-EXECS = fork1 forkbomb threads1 threads2 uid mystery1 \
-		fork-demo-simple fork-demo-wait exec-demo piddemo pid hello maine pipe killer
+EXECS = fork1 fork2 fork3 forkbomb \
+		exec1 exec2 pid pid2 killer pipe \
+		hello hello-static mystery1 uid \
+		threads1 threads2
 
 # targets
 all: $(EXECS)
 	@echo "\nDone!\n~~> $(EXECS)"
 
-### DEMO CODE
+### PROCESSES & PROCESS CONTROL
 
-fork1:
-	-$(CC) $(CFLAGS) -o $@ $@.c
+fork1: fork1.c
+	-$(CC) $(CFLAGS) -o $@ $^ # fork demo (1)
 
-forkbomb:
-	-$(CC) $(CFLAGS) -o $@ $@.c
+fork2: fork2.c
+	-$(CC) $(CFLAGS) -o $@ $^ # fork demo (2)
 
-threads1:
-	-$(CC) $(CFLAGS) -o $@ threads1.c -pthread # no synchronization...
+fork3: fork3.c
+	-$(CC) $(CFLAGS) -o $@ $^ # fork & wait demo
 
-threads2:
-	-$(CC) $(CFLAGS) -o $@ threads2.c -pthread # pthreads for synchronization
+forkbomb: forkbomb.c
+	-$(CC) $(CFLAGS) -o $@ $^ # fork bomb! (be careful where you run this...)
 
-uid:
-	-$(CC) $(CFLAGS) -o $@ uid_example.c
+exec1: exec1.c
+	-$(CC) $(CFLAGS) -o $@ $^ # exec demo (1)
 
-mystery1:
-	-$(CC) $(CFLAGS) -o $@ mystery1.c # try: ./mystery1 what does this do ?
+exec2: exec2.c
+	-$(CC) $(CFLAGS) -o $@ $^ # exec demo (2)
 
-### OTHERS EXAMPLES
+pid: pid.c
+	-$(CC) $(CFLAGS) -o $@ $^
 
-fork-demo-simple : fork-demo-simple.c
-	-$(CC) $(CFLAGS) -o fork-demo-simple fork-demo-simple.c
-
-fork-demo-wait : fork-demo-wait.c
-	-$(CC) $(CFLAGS) -o fork-demo-wait fork-demo-wait.c
-
-exec-demo : exec-demo.c
-	-$(CC) $(CFLAGS) -o exec-demo exec-demo.c
-
-piddemo : piddemo.c
-	-$(CC) $(CFLAGS) -o piddemo piddemo.c
-
-pid : pid.c
-	-$(CC) $(CFLAGS) -o pid pid.c
-
-hello : hello.c
-	-$(CC) $(CFLAGS) -o hello hello.c
-
-maine : maine.c
-	-$(CC) $(CFLAGS) -static -L/usr/lib/debug/usr/lib64 -o maine maine.c
-
-pipe : pipe.c
-	-$(CC) $(CFLAGS) -o pipe pipe.c
+pid2: pid2.c
+	-$(CC) $(CFLAGS) -o $@ $^
 
 killer : killer.c
-	-$(CC) $(CFLAGS) -o killer killer.c
+	-$(CC) $(CFLAGS) -o $@ $^ # kill demo
+
+pipe: pipe.c
+	-$(CC) $(CFLAGS) -o $@ $^ # pipes (thanks, doug!)
+
+### THREADING
+
+threads1: threads1.c
+	-$(CC) $(CFLAGS) -o $@ $^ -pthread # no synchronization...
+
+threads2: threads2.c
+	-$(CC) $(CFLAGS) -o $@ $^ -pthread # pthreads for synchronization
+
+### OTHER DEMOS
+
+mystery1: mystery1.c
+	-$(CC) $(CFLAGS) -o $@ $^ # try: ./mystery1 what does this do ?
+
+hello: hello.c
+	-$(CC) $(CFLAGS) -o $@ $^ # simple "hello world" support program
+
+hello-static: hello-static.c
+	-$(CC) $(CFLAGS) -static -L/usr/lib/debug/usr/lib64 -o $@ $^ # demo staticly linked lib!
+
+uid: uid.c
+	-$(CC) $(CFLAGS) -o $@ $^ # demo uid vs. euid
 
 clean:
 	@rm -f $(EXECS) *.o *.i *.s *~

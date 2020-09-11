@@ -31,6 +31,7 @@ ps m -o pid,tid,command # custom format that shows thread ID
 
 top
 top -p pid
+htop # way better than top!
 
 ####################################################################################################
 

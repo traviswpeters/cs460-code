@@ -1,5 +1,4 @@
 // sample pipe code
-// s.w. smith, cs58, dartmouth college
 
 #include <unistd.h>
 #include <stdio.h>
@@ -11,102 +10,88 @@
 char *indent = "===============";
 
 int main(void) {
+    int sv1[2];
+    int sv2[2];
+    int pid, other_pid;
+    int to_child, from_child;
+    int bytes;
 
-  int sv1[2];
-  int sv2[2];
-  int pid, other_pid;
-  int to_child, from_child;
-  int bytes;
+    if (pipe(sv1) < 0) {
+        fprintf(stderr,"pipe error (1)!\n");
+        exit(-1);
+    }
 
-  
-  if (pipe(sv1) < 0) {
-    fprintf(stderr,"error!\n");
-    exit(-1);
-  }
+    if (pipe(sv2) < 0) {
+        fprintf(stderr,"pipe error (2)!\n");
+        exit(-1);
+    }
 
-  if (pipe(sv2) < 0) {
-    fprintf(stderr,"error!\n");
-    exit(-1);
-  }
+    pid = fork();
+    if (pid < 0) {
+        fprintf(stderr,"fork error!\n");
+        exit(-1);
+    } else if (0 == pid) {
+        //----------------------child-------------------
 
+        int to_parent, from_parent;
 
-  pid = fork();
+        // close the other ends
+        close(sv1[WPIPE]);
+        close(sv2[RPIPE]);
 
-  if (pid < 0) {
-    fprintf(stderr,"error!\n");
-    exit(-1);
-  }
+        // use meaningful names
+        to_parent   = sv2[WPIPE];
+        from_parent = sv1[RPIPE];
 
-  if (0 == pid) {
-    //----------------------child-------------------
+        pid = getpid();
 
-    int to_parent, from_parent;
+        // write my pid to the parent
+        bytes = write(to_parent,&pid,sizeof(int));
+        if (bytes != sizeof(int)) {
+            fprintf(stderr,"error!\n");
+            exit(1);
+        }
+
+        // get pid of parent
+        bytes = read(from_parent, &other_pid, sizeof(int));
+        if (bytes < sizeof(int)) {
+            fprintf(stderr,"error\n");
+            exit(-1);
+        }
+
+        printf("child: the parent's pid is %d\n", other_pid);
+
+        printf("child is exiting\n");
+        exit(0);
+    }
+    //----------------------parent-------------------
 
     // close the other ends
-    close(sv1[WPIPE]);
-    close(sv2[RPIPE]);
+    close(sv1[RPIPE]);
+    close(sv2[WPIPE]);
 
     // use meaningful names
-    to_parent   = sv2[WPIPE];
-    from_parent = sv1[RPIPE];
+    to_child   = sv1[WPIPE];
+    from_child = sv2[RPIPE];
 
-    pid = getpid(); 
-
-    // write my pid to the parent
-    bytes = write(to_parent,&pid,sizeof(int));
-
-    if (bytes != sizeof(int)) {
-      fprintf(stderr,"error!\n");
-      exit(1);
-    }
-
-    // get pid of parent
-    bytes = read(from_parent, &other_pid, sizeof(int));
+    // get the pid of child
+    bytes = read(from_child, &other_pid, sizeof(int));
     if (bytes < sizeof(int)) {
-      fprintf(stderr,"error\n");
-      exit(-1);
+        fprintf(stderr,"error\n");
+        exit(-1);
     }
-    
-    printf("Child: the parent's pid is %d\n", other_pid);
 
-    printf("child is exiting\n");
-    exit(0);
+    printf("%s parent: the child's pid is %d\n", indent, other_pid);
 
-  }
+    pid = getpid();
 
-  //----------------------parent-------------------
+    // send our pid to child
+    bytes = write(to_child,&pid,sizeof(int));
+    if (bytes != sizeof(int)) {
+        fprintf(stderr,"error!\n");
+        exit(1);
+    }
 
-  // close the other ends
-  close(sv1[RPIPE]);
-  close(sv2[WPIPE]);
-
-  // use meaningful names
-  to_child   = sv1[WPIPE];
-  from_child = sv2[RPIPE];
-
-  // get the pid of child
-  bytes = read(from_child, &other_pid, sizeof(int));
-  if (bytes < sizeof(int)) {
-    fprintf(stderr,"error\n");
-    exit(-1);
-  }
-
-  printf("%s Parent: the child's pid is %d\n", indent, other_pid);
-
-  // send ours to child
-  pid = getpid();
-  
-  
-  bytes = write(to_child,&pid,sizeof(int));
-  if (bytes != sizeof(int)) {
-    fprintf(stderr,"error!\n");
-    exit(1);
-  }
-
-  printf("%s parent is exiting\n", indent);
-
-}  
-
-
-
-
+    printf("%s parent is exiting\n", indent);
+    return 0;
+}
