@@ -6,6 +6,7 @@ OBJS=$(SRCS:.c=.o)
 # executables
 EXECS = fork1 fork2 fork3 forkbomb \
 		exec1 exec2 pid pid2 killer pipe \
+		write_html exec_display \
 		hello hello-static mystery1 uid \
 		threads1 threads2
 
@@ -45,6 +46,14 @@ killer : killer.c
 pipe: pipe.c
 	-$(CC) $(CFLAGS) -o $@ $^ # pipes (thanks, doug!)
 
+### PA1 DEMOS / REFERENCES
+
+write_html: write_html.c
+	-$(CC) $(CFLAGS) -o $@ $^ # example: write an (html) file
+
+exec_display: exec_display.c
+	-$(CC) $(CFLAGS) -o $@ $^ # example: 'display' a photo
+
 ### THREADING
 
 threads1: threads1.c
@@ -69,3 +78,4 @@ uid: uid.c
 
 clean:
 	@rm -f $(EXECS) *.o *.i *.s *~
+	@rm -f index.html # produced by write_html

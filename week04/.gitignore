@@ -1,4 +1,4 @@
-fork1 
+fork1
 fork2
 fork3
 forkbomb
@@ -8,6 +8,9 @@ pid
 pid2
 pipe
 killer
+write_html
+index.html
+exec_display
 hello
 hello-static
 mystery1

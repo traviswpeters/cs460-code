@@ -3,8 +3,6 @@
 (Discussed in class on slides: fork1.c, exec1.c)
 
 fork2.c (simple demo)
-	play games with the sleeps
-	play games with the exit
 
 fork3.c (fork + wait)
 

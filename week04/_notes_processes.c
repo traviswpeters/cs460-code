@@ -32,3 +32,16 @@ if (pid < 0) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// For PA1
+
+// convert - convert between image formats as well as resize an image, blur, crop, despeckle,
+// dither, draw on, flip, join, re-sample, and much
+//
+// `man convert` says this is how we call it:
+// $ convert [input-option] input-file [output-option] output-file
+
+// display - displays an image or image sequence on any X server.
+//
+// `man display` says this is how we call it:
+// $ display [options] input-file
