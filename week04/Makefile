@@ -12,7 +12,7 @@ EXECS = fork1 fork2 fork3 forkbomb \
 
 # targets
 all: $(EXECS)
-	@echo "\nDone!\n~~> $(EXECS)"
+	@echo "Done! ~~> $(EXECS)"
 
 ### PROCESSES & PROCESS CONTROL
 
