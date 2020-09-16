@@ -6,7 +6,7 @@ OBJS=$(SRCS:.c=.o)
 # executables
 EXECS = fork1 fork2 fork3 forkbomb \
 		exec1 exec2 pid pid2 killer pipe \
-		write_html exec_display \
+		write_html exec_display exec_convert \
 		hello hello-static mystery1 uid \
 		threads1 threads2
 

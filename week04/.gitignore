@@ -4,19 +4,21 @@ fork3
 forkbomb
 exec1
 exec2
+exec_display
+exec_convert
 pid
 pid2
 pipe
 killer
 write_html
 index.html
-exec_display
 hello
 hello-static
 mystery1
 uid
 threads1
 threads2
+photo_out.jpg
 
 .DS_Store
 .dSYM
