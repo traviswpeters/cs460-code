@@ -17,35 +17,55 @@ int main(int argc, char *argv[], char* envp[]) {
     pid = getpid();
     printf("\nHi, I am process %d! Thanks for running me :-)\n", pid);
 
+    if (4==sizeof(stackaddr)) {
+        printf("-> compiled as 32-bit program (-m32)\n");
+    } else if (8==sizeof(stackaddr)) {
+        printf("-> compiled as 64-bit program\n");
+    } else {
+        printf("uh...what?\n");
+        return -1;
+    }
+
+    // use pmap to print the (userspace) memory layout of this process
     sprintf(cstring,"pmap -X %d\n", pid);
-    printf("\nRunning pmap....\n\n");
+    printf("-> Running pmap....\n\n");
     system(cstring);
 
-    stackaddr = (void *) &localv;
+    // now let's get some addresses!
+    stackaddr  = (void *) &localv;
     globaladdr = (void *) &globalv;
-    argVaddr  = (void *) argv;
-    argaddr   = (void *) argv[0];
-    envVaddr  = (void *) environ;
-    envaddr   = (void *) getenv("PWD");
-    heapaddr  = (void *) malloc(10);
+    argVaddr   = (void *) argv;
+    argaddr    = (void *) argv[0];
+    envVaddr   = (void *) environ;
+    envaddr    = (void *) getenv("PWD");
+    heapaddr   = (void *) malloc(10);
 
-    printf("\n");
-    printf("the address of main   = %p\n", &main);
-    printf("the address of printf = %p\n", &printf);
-    printf("the address of getenv = %p\n", &getenv);
-    printf("a stack address       = %p\n", stackaddr);
-    printf("a global address      = %p\n", globaladdr);
-    printf("the argv address      = %p\n", argVaddr);
-    printf("argv[0]               = %p\n", argaddr);
+    // Q: before looking at the output, do you know where these addresses will be?!
+    printf("\n*** Can you see where each item below 'lives' in the pmap output?! ***\n\n");
+    printf("-> the address of main   = %p\n", &main);
+    printf("-> the address of printf = %p\n", &printf);
+    printf("-> the address of getenv = %p\n", &getenv);
+    printf("-> a stack address       = %p\n", stackaddr);
+    printf("-> a global address      = %p\n", globaladdr);
+    printf("-> the argv address      = %p\n", argVaddr);
+    printf("-> argv[0]               = %p\n", argaddr);
     if (argaddr)
-        printf("  value is [%s]\n", (char *) argaddr);
-
-    printf("the environ address   = %p\n",envVaddr);
-    printf("getenv(\"PWD\")         = %p\n", envaddr);
+        printf("   value is [%s]\n", (char *) argaddr);
+    printf("-> the environ address   = %p\n",envVaddr);
+    printf("-> getenv(\"PWD\")         = %p\n", envaddr);
     if (envaddr)
         printf("   value is [%s]\n", (char *) envaddr);
+    printf("-> a heap address        = %p\n", heapaddr);
 
-    printf("a heap address        = %p\n\n", heapaddr);
+    // Stay alive until forcefully terminated...
+    // (allows us to look at a "live process" from other vantage points; e.g., procfs)
+    printf("\nNow I'm going to loop forever...");
+    fflush(stdout);
+    while (1) {
+        sleep(10);
+        printf(".");
+        fflush(stdout);
+    }
 
-    return 42;
+    return 0; // not reached
 }

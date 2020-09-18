@@ -4,16 +4,13 @@ SRCS=$(wildcard *.c)
 OBJS=$(SRCS:.c=.o)
 
 # executables
-EXECS = space probe defunct sf
+EXECS = probe sf defunct
 
 # targets
 all: $(EXECS)
 	@echo "Done! ~~> $(EXECS)"
 
 ### demos
-
-space: space.c
-	-$(CC) $(CFLAGS) -m32 -o $@ $^
 
 probe: probe.c
 	-$(CC) $(CFLAGS) -m32 -o $@ $^
