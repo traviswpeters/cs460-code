@@ -1,6 +1,8 @@
 // Demo "kill".
 // Try: run with an argument, then without an argument
 
+#define _POSIX_SOURCE
+
 #include <signal.h>  // for the kill() call
 #include <unistd.h>  // for fork()
 #include <stdio.h>   // printf

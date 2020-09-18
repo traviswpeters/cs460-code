@@ -1,3 +1,4 @@
+#define _POSIX_SOURCE
 #include <stdio.h>   // (f)printf, stdout, stderr, etc.
 #include <stdlib.h>  // exit, etc.
 #include <unistd.h>  // fork, exec, sleep, etc.
