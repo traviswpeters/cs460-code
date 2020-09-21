@@ -49,6 +49,7 @@ Vagrant.configure("2") do |config|
 
     # installs for OS assignments
     apt-get install gcc -y          # compiler
+    apt-get install gcc-multilib -y # multi architecture and 32-/64- bit support
     apt-get install gdb -y          # debugger
     apt-get install valgrind -y     # memory debugger
     apt-get install xauth -y        # x11
