@@ -6,27 +6,27 @@
 #include <unistd.h>
 #include <pthread.h>   // for threads
 
-//--------------------------------------------------------
-
 #define ALICE   1
 #define BOB     0
-#define PLAYERS 2
-#define LOOPS   7
+#define LOOPS   10
 #define name(x)  ( (x) ? "     Alice" : "          Bob" )
 
 void *childfun(void *vargp) {
     int me = (int)vargp;
-    int i;
+    pid_t mypid = getpid();
+    pthread_t mytid = pthread_self();
 
-    for (i = 0; i < LOOPS; i++) {
-        printf("%s: hello %d\n", name(me),i);
+    for (int i = 0; i < LOOPS; i++) {
+        printf("%s: hello %d\n", name(me), i);
+        // printf("%s: hello %d (pid %u tid %u [0x0%x])\n", name(me), i, (unsigned int)mypid, (unsigned int)mytid, (unsigned int)mytid);
         sleep(1);
     }
+
     return NULL;
 }
 
 int main(int argc, char *argv[]) {
-    pthread_t child1, child2;
+    pthread_t child1, child2;  // a "thread" has type pthread_t
     int rc;
     int i;
 

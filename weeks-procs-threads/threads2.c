@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
     long t;
 
     // create threads that count
-    for(t=0; t<NUM_THREADS; t++){
+    for (t = 0; t < NUM_THREADS; t++){
        rc = pthread_create(&threads[t], NULL, mythread, (void *)t);  //<<<<<<<<<<<<<<<<<<<< create threads
        if (rc){
           printf("ERROR; return code from pthread_create() is %d\n", rc);
@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
 
     // wait for the threads to finish
     // -> pthread_join() blocks the calling thread until the specified thread terminates.
-    for(t=0; t<NUM_THREADS; t++){
+    for (t = 0; t < NUM_THREADS; t++){
        rc = pthread_join(threads[t], NULL); //<<<<<<<<<<<<<<<<<<<< wait for threads to finish
        if (rc){
           fprintf(stderr, "ERROR; return code from pthread_join() is %d\n", rc);

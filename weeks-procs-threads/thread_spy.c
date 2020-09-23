@@ -40,19 +40,19 @@ void *alice(void *vargp) {
     printf("\n");
     printf("--------Hi, I'm thread Alice.\n");
     printf("--------My &x = 0x%08x\n", (unsigned int)&x);
-    printf("--------My  x = %d\n",x);
+    printf("--------My  x = %d\n", x);
     printf("--------Now I will kick Bob, and then wait for him to kick me\n");
 
-    bytes = write(alice_to_bob[WPIPE], &data,sizeof(int));
+    bytes = write(alice_to_bob[WPIPE], &data, sizeof(int));
     if (bytes != sizeof(int)) {
-        fprintf(stderr,"error!\n");
-        exit(1);
+        fprintf(stderr, "error!\n");
+        exit(3);
     }
 
     bytes = read(bob_to_alice[RPIPE], &data, sizeof(int));
     if (bytes < sizeof(int)) {
-        fprintf(stderr,"error\n");
-        exit(-1);
+        fprintf(stderr, "error\n");
+        exit(-3);
     }
 
     printf("\n--------Hi, I'm Alice again.\n");
@@ -71,33 +71,33 @@ void *bob(void *vargp) {
 
     bytes = read(alice_to_bob[RPIPE], &data, sizeof(int));
     if (bytes < sizeof(int)) {
-        fprintf(stderr,"error\n");
-        exit(-1);
+        fprintf(stderr, "error\n");
+        exit(-3);
     }
 
     x_addresses[BOB] = &x;
     x = BOB;
 
     printf("\n========Hi, I'm Bob.  Here's an address:\n");
-    printf("========My &x = 0x%08x\n",(unsigned int)&x);
+    printf("========My &x = 0x%08x\n", (unsigned int)&x);
     printf("========My x = %d\n",x);
-    printf("========Alice's x = %d\n",*x_addresses[ALICE]);
+    printf("========Alice's x = %d\n", *x_addresses[ALICE]);
     printf("========I'll change Alice's x to %d\n", BOB);
     *x_addresses[ALICE] = BOB;
     sleep(10);  // for dramatic effect
     printf("========Now I'll kick Alice\n");
 
-    bytes = write(bob_to_alice[WPIPE], &data,sizeof(int));
+    bytes = write(bob_to_alice[WPIPE], &data, sizeof(int));
     if (bytes != sizeof(int)) {
-        fprintf(stderr,"error!\n");
-        exit(1);
+        fprintf(stderr, "error!\n");
+        exit(3);
     }
 
     return NULL;
 }
 
 int main(int argc, char *argv[]) {
-    pthread_t child1,child2;
+    pthread_t child1, child2;
     int rc;
     char *cp;
 
@@ -129,8 +129,8 @@ int main(int argc, char *argv[]) {
                         NULL);    // the argument to the function
 
     if (rc) {
-        printf("hey, it failed!\n");
-        exit(-1);
+        printf("hey, child1 failed!\n");
+        exit(-2);
     }
 
     rc = pthread_create(&child2,  // thread data structure to be written
@@ -139,8 +139,8 @@ int main(int argc, char *argv[]) {
                         NULL);    // the argument to the function
 
     if (rc) {
-        printf("hey, it failed!\n");
-        exit(-1);
+        printf("hey, child2 failed!\n");
+        exit(-2);
     }
 
     // now, wait until child exits

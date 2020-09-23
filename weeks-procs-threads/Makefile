@@ -1,7 +1,15 @@
-# A good Makefile reference: http://www.csheeet.com/en/latest/notes/c_make.html
+#
+# NOTE:
+# THIS IS NOT A GOOD REFERENCE FOR MAKEFILES IN GENERAL.
+# THIS MAKEFILE JUST MAKES IT EASY TO BUILD A BUNCH OF DIFFERENT DEMOS WE LOOK AT IN CLASS.
+#
+# FOR GOOD MAKEFILE REFERENCES, SEE
+# - THE SLIDES/LINKS FROM CLASS
+# - THE STARTER FILES FOR ASSIGNMENTS (e.g., pa1_release, pa2_release)
+#
 
 CC = gcc
-CFLAGS = -ggdb#-Wall -std=c11
+CFLAGS = -ggdb#-Wall -std=c11  # <<< NOTE: I intentionally turn off warnings; I do things in demos that you often shouldn't do in real programs :)
 SRCS=$(wildcard *.c)
 OBJS=$(SRCS:.c=.o)
 
