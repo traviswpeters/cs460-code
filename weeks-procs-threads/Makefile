@@ -20,7 +20,7 @@ EXECS = fork1 fork2 fork3 forkbomb \
 		hello hello-static mystery1 uid \
 		probe address32 address64 malloc_mystery \
 		sf defunct \
-		threads0 threads1 threads2 thread_spy thread_atm
+		threads0 threads1 threads2 thread_spy thread_atm ipt
 
 .PHONY: all clean
 
@@ -94,6 +94,14 @@ thread_spy: thread_spy.c
 
 thread_atm: thread_atm.c
 	-$(CC) $(CFLAGS) -pthread -m32 -o $@ $^
+
+ipt: ipt.c
+	-$(CC) $(CFLAGS) -pthread -m32 -o $@ $^ # example with interleaving - threads (t) & processes (p)
+	# Try:
+	#   ./ipt p 2 0
+	#   ./ipt p 2 1
+	#   ./ipt t 2 0
+	#   ./ipt t 2 1
 
 ### ADDRESS SPACE DEMOS
 

@@ -10,10 +10,10 @@
 #include <stdlib.h>    // exit()
 #include <pthread.h>   // for threads
 
-#define NUM_THREADS 10
+#define NUM_THREADS 20
 
 static int target = 1000;
-// static int target = 100000000; // now try uncommenting me....
+// static int target = 10000000; // now try uncommenting me.... (and commenting out the line above)
 
 // a global variable shared by all threads...
 static volatile int counter = 0;
@@ -21,9 +21,11 @@ static volatile int counter = 0;
 // mythread()
 // Simply adds 1 to counter repeatedly, in a loop
 void *mythread(void *arg) {
+    printf("%d: begin\n", (int) arg);
     for (int i = 0; i < target; i++) {
         counter += 1;
     }
+    printf("%d: done\n", (int) arg);
     pthread_exit(NULL);
 }
 
@@ -32,7 +34,7 @@ int main(int argc, char *argv[]) {
 
     pthread_t threads[NUM_THREADS];
     int rc;
-    long t;
+    int t;
 
     // create threads that count
     for (t = 0; t < NUM_THREADS; t++){

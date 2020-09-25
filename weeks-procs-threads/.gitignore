@@ -1,5 +1,8 @@
 .DS_Store
 .dSYM
+*.i
+*.s
+*.o
 
 fork1
 fork2
@@ -33,3 +36,4 @@ threads2
 atm
 thread_atm
 thread_spy
+ipt

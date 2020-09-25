@@ -8,7 +8,14 @@
 - pid2.c
 - killer.c
 - pipe.c
-- hello-static.c
+
+- fork2.c (simple demo)
+- fork3.c (fork + wait)
+- exec2.c
+- pid.c
+- pid2.c
+- killer.c
+- pipe.c
 
 # Notes on syscalls for process control.
 

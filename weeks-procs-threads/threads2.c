@@ -13,7 +13,7 @@
 #define NUM_THREADS 10
 
 static int target = 1000;
-// static int target = 100000000; // now try uncommenting me....
+// static int target = 100000000; // now try uncommenting me.... (and commenting out the line above)
 
 // a global variable shared by all threads...
 static volatile int counter = 0;
