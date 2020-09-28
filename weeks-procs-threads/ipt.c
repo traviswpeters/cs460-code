@@ -60,6 +60,8 @@ void *kidfun(void *vargp) {
 
         consider_interleaving();
     }
+
+    return NULL;
 }
 
 int main(int argc, char *argv[]){
