@@ -116,13 +116,21 @@ https://computing.llnl.gov/tutorials/pthreads/#Compiling
 gcc -pthread ...
 ```
 
-### Basics
+### Creating/Joining Threads
+
+**Create 1 new thread:**
 
 ```c
 rc = pthread_create(&cars[i], NULL, OneVehicle, (void *)vehicle[i]);
 ```
 
+**Create `NUM_THREADS` new threads and wait for them to finish:**
+
 ```c
+#define NUM_THREADS 10
+
+// ... other code ...
+
 // Create threads
 for (int i = 0; i < NUM_THREADS; i++) {
     rc = pthread_create(&cars[i], NULL, OneVehicle, (void *)vehicle[i]);
@@ -132,9 +140,9 @@ for (int i = 0; i < NUM_THREADS; i++) {
         exit(-2);
     }
 }
-```
 
-```c
+// some time later after you've created all of your threads...
+
 // Join threads
 for (int i = 0; i < NUM_THREADS; i++) {
     pthread_join(cars[i], NULL);
@@ -142,44 +150,70 @@ for (int i = 0; i < NUM_THREADS; i++) {
 }
 ```
 
-### Synchronization
+### Synchronization: Locks
+
+We can use as many locks as we need.
+Below are some references to get you started.
+
+**LockInit**
 
 ```c
-// Init a mutexes ("locks")
-pthread_mutex_t lock =  PTHREAD_MUTEX_INITIALIZER;
-
-// Init a bunch of mutexes ("locks")
-pthread_mutex_t lock[NLOCKS];
-for (int i = 0; i < NLOCKS; i++) {
-    pthread_mutex_init(&lock[i], NULL);
-}
+// In pthreads, a lock is a pthread_mutex_t.
+// You can initialize one statically:
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+// OR dynamically:
+rc = pthread_mutex_init(&mutex, NULL);
 ```
 
+**Acquire**
+
 ```c
-// lock
-rc = pthread_mutex_lock(&hanoverLock);
+rc = pthread_mutex_lock(&mutex);
 if (rc) {
-    fprintf(stderr, "Thread %d's attempt to aquire Lock failed\n", id);
-    exit(-3);
+    printf("hey, it failed!\n");
+    exit(-1);
 }
+```
 
-// ...do stuff while holding lock...
+**Release**
 
-// unlock
-rc = pthread_mutex_unlock(&hanoverLock);
+```c
+rc = pthread_mutex_unlock(&mutex);
 if (rc) {
-    fprintf(stderr, "Thread %d's attempt to release Lock failed\n", id);
-    exit(-3);
+    printf("hey, it failed!\n");
+    exit(-1);
 }
 ```
+### Synchronization: Condition Variables
+
+We can use as many condition variable as we need.
+Below are some references to get you started.
+
+**CVarInit**
 
 ```c
-// Init a condition variable
-pthread_cond_t someCondition = PTHREAD_COND_INITIALIZER;
+// In pthreads, a cond. var. is a pthread_cond_t.
+// ... you’ll also need a pthread_mutex_t (see next slide)
+
+// You can initialize one statically:
+pthread_cond_t cvar1 = PTHREAD_COND_INITIALIZER;
+
+// Or dynamically:
+rc = pthread_cond_init(&cvar1, NULL);
 ```
 
+**CVarWait**
+
 ```c
-// Example conditions / condition variables:
-pthread_cond_t cvar_direction = PTHREAD_COND_INITIALIZER; 		// condition variable for bridge direction
-pthread_cond_t cvar_numcars = PTHREAD_COND_INITIALIZER; 		// condition variable for cars on bridge
+// Precondition: Suppose you have some mutex that has been initialized...
+pthread_cond_wait(&cvar1, &mutex); // rc always 0; see the man page
+```
+
+**CVarSignal / CVarBroadcast**
+
+```c
+/* after you’re done, signal waiter(s)... */
+pthread_cond_signal(&cvar1);
+// vs.
+pthread_cond_broadcast(&cvar1);
 ```

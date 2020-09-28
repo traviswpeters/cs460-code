@@ -37,3 +37,8 @@ atm
 thread_atm
 thread_spy
 ipt
+sync_lock
+sync_lock_tests
+sync_cvar
+sync_sem
+rand_test

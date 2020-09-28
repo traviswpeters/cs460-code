@@ -9,7 +9,7 @@
 #
 
 CC = gcc
-CFLAGS = -ggdb#-Wall -std=c11  # <<< NOTE: I intentionally turn off warnings; I do things in demos that you often shouldn't do in real programs :)
+CFLAGS = -ggdb# -Wall -std=c11  # <<< NOTE: I intentionally turn off warnings; I do things in demos that you often shouldn't do in real programs :)
 SRCS=$(wildcard *.c)
 OBJS=$(SRCS:.c=.o)
 
@@ -17,10 +17,11 @@ OBJS=$(SRCS:.c=.o)
 EXECS = fork1 fork2 fork3 forkbomb \
 		exec1 exec2 pid pid2 killer pipe \
 		write_html exec_display exec_convert \
-		hello hello-static mystery1 uid \
+		hello hello-static mystery1 uid rand_test \
 		probe address32 address64 malloc_mystery \
 		sf defunct \
-		threads0 threads1 threads2 thread_spy thread_atm ipt
+		threads0 threads1 threads2 thread_spy thread_atm ipt \
+		sync_lock sync_lock_tests sync_cvar sync_sem
 
 .PHONY: all clean
 
@@ -103,6 +104,20 @@ ipt: ipt.c
 	#   ./ipt t 2 0
 	#   ./ipt t 2 1
 
+### Additional Concurrency Examples w/ Pthreads
+
+sync_lock: sync_lock.c
+	-$(CC) $(CFLAGS) -pthread -m32 -o $@ $^
+
+sync_lock_tests: sync_lock_tests.c
+	-$(CC) $(CFLAGS) -pthread -m32 -o $@ $^
+
+sync_cvar: sync_cvar.c
+	-$(CC) $(CFLAGS) -pthread -m32 -o $@ $^
+
+sync_sem: sync_sem.c
+	-$(CC) $(CFLAGS) -pthread -m32 -o $@ $^
+
 ### ADDRESS SPACE DEMOS
 
 probe: probe.c
@@ -133,6 +148,9 @@ hello-static: hello-static.c
 
 uid: uid.c
 	-$(CC) $(CFLAGS) -o $@ $^ # demo uid vs. euid
+
+rand_test: rand_test.c
+	-$(CC) $(CFLAGS) -o $@ $^ # demo for using srand() and rand() to generate random numbers
 
 clean:
 	@rm -f $(EXECS) *.o *.i *.s *~
