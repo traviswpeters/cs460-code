@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-W -Wall -std=c11 -ggdb -pthread
+CFLAGS=-W -Wall -std=c11 -ggdb -pthread -m32
 LIBS=
 SRCS= #<<< TODO: PUT YOUR C SOURCE CODE FILE(S) HERE - BEFORE THE COMMENT - DELETE THIS COMMENT AFTER YOU'VE DONE THIS!
 OBJS=$(SRCS:.c=.o)
