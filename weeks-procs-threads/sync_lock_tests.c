@@ -1,5 +1,8 @@
 // simple lock demo code
 
+#define _XOPEN_SOURCE 700
+// --> see: https://stackoverflow.com/a/18376848
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>

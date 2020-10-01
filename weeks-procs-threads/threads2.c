@@ -23,15 +23,17 @@ pthread_mutex_t mutexsum; //<<<<<<<<<<<<<<<<<<<< declare the mutex (our "global"
 // mythread()
 // Simply adds 1 to counter repeatedly, in a loop
 void *mythread(void *arg) {
+    printf("%d: begin\n", (int) arg);
     for (int i = 0; i < target; i++) {
         pthread_mutex_lock (&mutexsum); //<<<<<<<<<<<<<<<<<<<< lock!
         counter += 1;
         pthread_mutex_unlock (&mutexsum);  //<<<<<<<<<<<<<<<<<<<< unlock!
     }
+    printf("%d: done\n", (int) arg);
     pthread_exit(NULL);
 }
 
-int main(int argc, char *argv[]) {
+int main(void) {
     pthread_mutex_init(&mutexsum, NULL);  //<<<<<<<<<<<<<<<<<<<< initialize the mutex
 
     printf("main: begin (counter = %d)\n", counter);

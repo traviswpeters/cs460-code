@@ -33,6 +33,7 @@ char *spaces(int kid) {
 // a simple function demonstrating use of locks
 void *lockfun(void *vargp) {
     int me = (int) vargp;
+    // int me = *((int *)vargp);
     int rc;
 
     printf("%s Thread %d: wants to work on the complex data structure.\n", spaces(me), me);
@@ -47,7 +48,7 @@ void *lockfun(void *vargp) {
     printf("%s Thread %d: acquired the lock!\n", spaces(me), me);
     printf("%s Thread %d: In critical section.  Now I can work on the data structure and temporarily make the invariant false!\n", spaces(me), me);
     sleep(1);
-    printf("%s (Thread %d: pretending to work on the data)\n", spaces(me), me);
+    printf("%s Thread %d: pretending to work on the data\n", spaces(me), me);
     sleep(1);
     printf("%s Thread %d: All done. I've restored the invariant. About to release lock...\n", spaces(me), me);
 
@@ -62,8 +63,9 @@ void *lockfun(void *vargp) {
     return NULL;
 }
 
-int main(int argc, char *argv[]) {
-    int i, rc;
+int main(void) {
+    int rc;
+    int i;
 
     // some number of kids (threads)
     pthread_t kids[KIDS];
@@ -73,6 +75,7 @@ int main(int argc, char *argv[]) {
                             NULL,        // attributes (we'll ignore)
                             lockfun,     // the function to be run
                             (void *) i); // the argument to the function
+                            // (void *) &i); // the argument to the function
         if (rc) {
             printf("pthread_create failed!\n");
             exit(-1);

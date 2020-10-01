@@ -29,7 +29,7 @@ void *mythread(void *arg) {
     pthread_exit(NULL);
 }
 
-int main(int argc, char *argv[]) {
+int main(void) {
     printf("main: begin (counter = %d)\n", counter);
 
     pthread_t threads[NUM_THREADS];

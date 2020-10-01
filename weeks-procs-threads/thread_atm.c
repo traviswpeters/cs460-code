@@ -113,8 +113,6 @@ void *withdraw(void *vargp) {
 
 // print state of the system
 void print_state(state_t *sp) {
-    int rc;
-
     if (NULL == sp) {
         fprintf(stderr,"careful with that NULL pointer, Eugene\n");
         exit(-1);
@@ -122,10 +120,11 @@ void print_state(state_t *sp) {
 
     printf("balance = %d, alice has %d, bob has %d\n",
             sp->balance, sp->wallets[ALICE], sp->wallets[BOB]);
+
     fflush(stdout);
 }
 
-int main(int argc, char *argv[]) {
+int main(void) {
     pthread_t child1, child2;
     int rc;
     state_t state;

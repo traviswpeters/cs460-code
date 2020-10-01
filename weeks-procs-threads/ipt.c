@@ -2,6 +2,12 @@
 // Travis Peters, CS460, Montana State University - updated fall 2020
 // S.W. Smith, CS58, Dartmouth College - fall 2017
 
+// Try:
+//   ./ipt p 2 0
+//   ./ipt p 2 1
+//   ./ipt t 2 0
+//   ./ipt t 2 1
+
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -28,7 +34,7 @@ void consider_interleaving(void);
 // for the lock (shhhh, ignore this for now :)
 # define PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP \
     { { 0, 0, 0, PTHREAD_MUTEX_ERRORCHECK_NP, 0, { 0 } } }
-pthread_mutex_t lock =  PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP;
+pthread_mutex_t lock = PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP;
 
 void *kidfun(void *vargp) {
     int me = (int)vargp;

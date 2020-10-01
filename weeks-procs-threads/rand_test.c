@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-int main(int argc, char* argv[]) {
+int main(void) {
     // try chaging the seed value!
     int seed = 10;
     // try chaging the mod_num value!

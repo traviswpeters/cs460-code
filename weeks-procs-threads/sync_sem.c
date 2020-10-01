@@ -110,7 +110,7 @@ void *downfun(void *vargp) {
     return NULL;
 }
 
-int main(int argc, char *argv[]) {
+int main(void) {
     int i, rc;
 
     // some number of kids (threads)

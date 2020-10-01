@@ -41,4 +41,5 @@ sync_lock
 sync_lock_tests
 sync_cvar
 sync_sem
+sync_grand_demo
 rand_test

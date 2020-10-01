@@ -11,27 +11,30 @@
 char dest[LEN0];
 
 int main() {
+    char *src = "there is no dark side of the moon, really";
+    void *ptr;
 
-  pid_t i;
-  int n;
-  char *src = "there is no dark side of the moon, really";
-  void *ptr;
+    strncpy(dest, src, LEN0);
 
-  strncpy(dest, src, LEN0);
+    printf("mallocing 0x%0x bytes...\n", LEN0);
 
-  i = getpid();
+    ptr = malloc(LEN0);
+    if (ptr == NULL) {
+        exit(-1);
+    }
 
-  printf("mallocing 0x%0x bytes...\n", LEN0);
+    printf("return %p\n", ptr);
 
-  ptr = malloc(LEN0);
+    printf("mallocing 0x%0x bytes...\n", LEN1);
 
-  printf("return %p\n", ptr);
+    ptr = malloc(LEN1);
+    if (ptr == NULL) {
+        exit(-1);
+    }
 
-  printf("mallocing 0x%0x bytes...\n", LEN1);
+    printf("return %p\n", ptr);
 
-  ptr = malloc(LEN1);
-
-  printf("return %p\n", ptr);
+    return 0;
 }
 
 // After playing with the code and thinking about its output:

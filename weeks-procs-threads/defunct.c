@@ -5,7 +5,7 @@
 #include <sys/wait.h>
 
 int main(void) {
-    int pid, rc, status;
+    int pid, rc;
 
     printf("Zombie demo.  Open another window!\n");
 

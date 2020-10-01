@@ -10,7 +10,7 @@
 int main(int argc, char *argv[]) {
     int pid, rc;
 
-    printf("Hi, I'm the parent and I am forking\n");
+    printf("Thanks for running %s! I'm the parent and I am forking\n", argv[0]);
 
     pid = fork();
     if (0 == pid) {
@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-    printf("I'm the parent, and I shall sleep for a while\n");
+    printf("I'm the parent, and I shall sleep for a while...\n");
     sleep(10);
     printf("I'm the parent and I just woke up. I will now kill the child...\n");
 

@@ -5,7 +5,7 @@
 char *indent = "===============";
 
 int main(void) {
-    int pid, rc, status;
+    int pid, rc;
 
     pid = getpid();
     printf("%s I'm process %d, and I'm about to fork\n", indent, pid);

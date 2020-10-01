@@ -11,11 +11,11 @@ char cstring[100];
 int main(int argc, char *argv[], char* envp[]) {
 
     int localv, pid;
-    void *stackaddr, *globaladdr, *argVaddr, *argaddr, *envVaddr, *envaddr;
+    void *stackaddr, *globaladdr, *argVaddr, *argaddr, *envVaddr, *envpaddr, *envaddr;
     void *heapaddr;
 
     pid = getpid();
-    printf("\nHi, I am process %d! Thanks for running me :-)\n", pid);
+    printf("\nHi, I am process %d! Thanks for running me and giving me %d args :-)\n", pid, argc);
 
     if (4==sizeof(stackaddr)) {
         printf("-> compiled as 32-bit program (-m32)\n");
@@ -37,6 +37,7 @@ int main(int argc, char *argv[], char* envp[]) {
     argVaddr   = (void *) argv;
     argaddr    = (void *) argv[0];
     envVaddr   = (void *) environ;
+    envpaddr   = (void *) envp;
     envaddr    = (void *) getenv("PWD");
     heapaddr   = (void *) malloc(10);
 
@@ -51,7 +52,8 @@ int main(int argc, char *argv[], char* envp[]) {
     printf("-> argv[0]               = %p\n", argaddr);
     if (argaddr)
         printf("   value is [%s]\n", (char *) argaddr);
-    printf("-> the environ address   = %p\n",envVaddr);
+    printf("-> the environ address   = %p\n", envVaddr);
+    printf("-> the envp address      = %p\n", envpaddr);
     printf("-> getenv(\"PWD\")         = %p\n", envaddr);
     if (envaddr)
         printf("   value is [%s]\n", (char *) envaddr);

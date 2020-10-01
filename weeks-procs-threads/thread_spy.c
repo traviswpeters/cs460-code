@@ -28,12 +28,13 @@ int *x_addresses[PLAYERS];
 int alice_to_bob[2];
 int bob_to_alice[2];
 int global;
+int size_of_int = sizeof(int); // needed to avoid warning re: unsigned/signed comparison
 
 //--------------------------------------------------------
 // pthreads says: childfuns take void * and return void *
 
-void *alice(void *vargp) {
-    int x, rc, bytes, data = 42;
+void *alice() {
+    int x, bytes, data = 42;
     x_addresses[ALICE] = &x;
     x = ALICE;
 
@@ -43,14 +44,14 @@ void *alice(void *vargp) {
     printf("--------My  x = %d\n", x);
     printf("--------Now I will kick Bob, and then wait for him to kick me\n");
 
-    bytes = write(alice_to_bob[WPIPE], &data, sizeof(int));
-    if (bytes != sizeof(int)) {
+    bytes = write(alice_to_bob[WPIPE], &data, size_of_int);
+    if (bytes != size_of_int) {
         fprintf(stderr, "error!\n");
         exit(3);
     }
 
-    bytes = read(bob_to_alice[RPIPE], &data, sizeof(int));
-    if (bytes < sizeof(int)) {
+    bytes = read(bob_to_alice[RPIPE], &data, size_of_int);
+    if (bytes < size_of_int) {
         fprintf(stderr, "error\n");
         exit(-3);
     }
@@ -64,13 +65,13 @@ void *alice(void *vargp) {
 //--------------------------------------------------------
 // pthreads says: childfuns take void * and return void *
 
-void *bob(void *vargp) {
-    int x, rc, bytes, data;
+void *bob() {
+    int x, bytes, data;
 
     printf("\n========Hi, I'm thread Bob. I'll wait for Alice to kick me.\n");
 
-    bytes = read(alice_to_bob[RPIPE], &data, sizeof(int));
-    if (bytes < sizeof(int)) {
+    bytes = read(alice_to_bob[RPIPE], &data, size_of_int);
+    if (bytes < size_of_int) {
         fprintf(stderr, "error\n");
         exit(-3);
     }
@@ -87,8 +88,8 @@ void *bob(void *vargp) {
     sleep(10);  // for dramatic effect
     printf("========Now I'll kick Alice\n");
 
-    bytes = write(bob_to_alice[WPIPE], &data, sizeof(int));
-    if (bytes != sizeof(int)) {
+    bytes = write(bob_to_alice[WPIPE], &data, size_of_int);
+    if (bytes != size_of_int) {
         fprintf(stderr, "error!\n");
         exit(3);
     }
@@ -96,7 +97,7 @@ void *bob(void *vargp) {
     return NULL;
 }
 
-int main(int argc, char *argv[]) {
+int main(void) {
     pthread_t child1, child2;
     int rc;
     char *cp;

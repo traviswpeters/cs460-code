@@ -15,6 +15,7 @@ int main(void) {
     int pid, other_pid;
     int to_child, from_child;
     int bytes;
+    int size_of_int = sizeof(int); // avoids comparisons of incompatible types
 
     if (pipe(sv1) < 0) {
         fprintf(stderr,"pipe error (1)!\n");
@@ -46,15 +47,15 @@ int main(void) {
         pid = getpid();
 
         // write my pid to the parent
-        bytes = write(to_parent,&pid,sizeof(int));
-        if (bytes != sizeof(int)) {
+        bytes = write(to_parent, &pid, size_of_int);
+        if (bytes != size_of_int) {
             fprintf(stderr,"error!\n");
             exit(1);
         }
 
         // get pid of parent
-        bytes = read(from_parent, &other_pid, sizeof(int));
-        if (bytes < sizeof(int)) {
+        bytes = read(from_parent, &other_pid, size_of_int);
+        if (bytes < size_of_int) {
             fprintf(stderr,"error\n");
             exit(-1);
         }
@@ -75,8 +76,8 @@ int main(void) {
     from_child = sv2[RPIPE];
 
     // get the pid of child
-    bytes = read(from_child, &other_pid, sizeof(int));
-    if (bytes < sizeof(int)) {
+    bytes = read(from_child, &other_pid, size_of_int);
+    if (bytes < size_of_int) {
         fprintf(stderr,"error\n");
         exit(-1);
     }
@@ -86,8 +87,8 @@ int main(void) {
     pid = getpid();
 
     // send our pid to child
-    bytes = write(to_child,&pid,sizeof(int));
-    if (bytes != sizeof(int)) {
+    bytes = write(to_child, &pid, size_of_int);
+    if (bytes != size_of_int) {
         fprintf(stderr,"error!\n");
         exit(1);
     }

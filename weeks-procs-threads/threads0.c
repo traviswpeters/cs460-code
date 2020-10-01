@@ -13,8 +13,8 @@
 
 void *childfun(void *vargp) {
     int me = (int)vargp;
-    pid_t mypid = getpid();
-    pthread_t mytid = pthread_self();
+    // pid_t mypid = getpid();
+    // pthread_t mytid = pthread_self();
 
     for (int i = 0; i < LOOPS; i++) {
         printf("%s: hello %d\n", name(me), i);
@@ -25,10 +25,9 @@ void *childfun(void *vargp) {
     return NULL;
 }
 
-int main(int argc, char *argv[]) {
+int main(void) {
     pthread_t child1, child2;  // a "thread" has type pthread_t
     int rc;
-    int i;
 
     // launch kids
     rc = pthread_create(&child1,  // thread data structure to be written
