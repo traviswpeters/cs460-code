@@ -4,7 +4,9 @@ This is the base "upstream" repository for CSCI 460.
 
 This repository is mostly intended to contain examples from class and serve as an example GitHub repository for students.
 
-Also, to use GitHub effectively in this class we require a rather particular way of setting things up.
+## GitHub Setup for Class
+
+To use GitHub effectively in this class we require a rather particular way of setting things up.
 In Programming Assignment (PA0) I outlined how you can setup two repositories: one private and one public.
 **Your private repo** will be where you check in your solo work (early programming assignments) and for our grading.
 **Your public repo** can be used to contribute things back to this class repo.
@@ -14,7 +16,7 @@ For more information, please see [Task 8 of PA0](https://www.traviswpeters.com/c
 
 Most weeks we will look at code examples.
 These code examples help us practice tools we use, help us to understand how an OS implements something, etc.
-For weeks with code examples, a new directory (`weekN`) will be added to help us organize our examples.
+Demo code is organized into subdirectories with the prefix `week`. 
 
 ## Programming Assignments (PA)
 
