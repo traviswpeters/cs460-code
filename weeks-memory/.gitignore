@@ -1,0 +1,9 @@
+.DS_Store
+.dSYM
+*.i
+*.s
+*.o
+core
+core.*
+
+fault
