@@ -23,7 +23,6 @@ char cstring[100];
 void bigstack(void) {
     char big_array[STACKJUMP];
     printf("-----inside the subroutine, an address on the stack is:  0x%08x\n", (int) &big_array[0]);
-
     printf("\n\n[2] Running pmap....\n");
     system(cstring);
     printf("\n\n");
@@ -77,12 +76,15 @@ int main(int argc, char *argv[]) {
     belowstack = stack - STACKJUMP;
 
     pid = getpid();
-    sprintf(cstring, "pmap -x %d | tac\n", pid);
+    sprintf(cstring, "pmap -X %d | tac\n", pid);
     printf("\n\n[1] Running pmap....\n");
     system(cstring);
     printf("\n\n");
 
     brk_value = sbrk(0);
+
+    int pagesize = sysconf(_SC_PAGESIZE); // https://stackoverflow.com/a/37897870
+    printf("page size                     : 0x%08x (%d)\n", pagesize, pagesize);
 
     printf("an address on the stack       : 0x%08x\n", (int) stack);
     printf("an address below the stack    : 0x%08x\n", (int) belowstack);
@@ -168,12 +170,24 @@ int main(int argc, char *argv[]) {
         break;
 
     case 5:
-        printf("trying to read from below the stack...0x%08x\n", (int) belowstack);
-        printf("(0x%08x bytes below the address of the local variable 'stack')\n", STACKJUMP);
-        fflush(stdout);
-        sleep(2);
-        c =  *(char*) belowstack;   // try reading from this address...
-        printf("ok\n");
+        // printf("trying to read from below the stack...0x%08x\n", (int) belowstack);
+        // printf("(0x%08x bytes below the address of the local variable 'stack')\n", STACKJUMP);
+        // fflush(stdout);
+        // sleep(2);
+        // c =  *(char*) belowstack;   // try reading from this address...
+        // printf("ok\n");
+
+        for (i = 0; i < 32; i++) {
+            printf("trying to read from below the stack...0x%08x\n", (int) belowstack);
+            printf("(0x%08x bytes below the address of the local variable 'stack')\n", STACKJUMP*(i+1));
+            fflush(stdout);
+            sleep(2);
+            c =  *(char*) belowstack;   // try reading from this address...
+            printf("ok\n");
+
+            belowstack = belowstack - STACKJUMP;
+        }
+
         break;
 
     case 6:
@@ -188,6 +202,7 @@ int main(int argc, char *argv[]) {
         fflush(stdout);
         sleep(2);
         bigstack();
+
         printf("back from the subroutine...\n");
         printf("trying to read from below the stack...0x%08x\n", (int) belowstack);
         printf("(0x%08x bytes below the address of the local variable 'stack')\n", STACKJUMP);

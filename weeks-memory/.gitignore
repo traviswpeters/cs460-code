@@ -7,3 +7,7 @@ core
 core.*
 
 fault
+heap
+psize32
+psize64
+strider

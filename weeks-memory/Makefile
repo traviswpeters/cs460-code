@@ -14,7 +14,7 @@ SRCS=$(wildcard *.c)
 OBJS=$(SRCS:.c=.o)
 
 # executables
-EXECS = fault
+EXECS = fault #heap psize32 psize64 strider
 
 .PHONY: all clean
 
@@ -32,6 +32,18 @@ all: $(EXECS)
 # - malloc_mystery.c
 
 fault: fault.c
+	-$(CC) $(CFLAGS) -o $@ $^
+
+heap: heap.c
+	-$(CC) $(CFLAGS) -o $@ $^
+
+psize32: psize.c
+	-$(CC) -ggdb -Wall -Wextra -std=c11 -m32 -o $@ $^
+
+psize64: psize.c
+	-$(CC) -ggdb -Wall -Wextra -std=c11 -m64 -o $@ $^
+
+strider: strider.c
 	-$(CC) $(CFLAGS) -o $@ $^
 
 clean:
