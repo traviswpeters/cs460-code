@@ -6,8 +6,17 @@
 core
 core.*
 
+OLD*
 fault
 heap
+new_heap
 psize32
 psize64
 strider
+brkfun
+argprobe
+vfork
+vfork-abuse
+vfork-heap
+sharing
+nullpointer

@@ -7,6 +7,9 @@
 // -> buld with -m32
 // -> build with -ggdb will let you look at core files more easily!
 
+// travis peters, montana state university
+// s.w. smith, dartmouth
+
 #define _DEFAULT_SOURCE
 #include <unistd.h>
 #include <stdlib.h>
@@ -14,9 +17,11 @@
 #include <ctype.h>
 
 char *global_var = "abcdef";
+// #define JUMP 8192
 #define JUMP (8192<<2)
 #define HEAPJUMP   0xF0000
 #define STACKJUMP  0xF0000
+#define MLOOPS 32
 
 char cstring[100];
 
@@ -34,8 +39,9 @@ int main(int argc, char *argv[]) {
     void *nullpointer = NULL;
     void *brk_value;
     void *p1, *p2;
-    int i;
+    int i, j;
     int pid;
+    void *mvals[MLOOPS];
     int demo = 0;
 
     // pull out argument
@@ -156,17 +162,32 @@ int main(int argc, char *argv[]) {
         break;
 
     case 4:
+        // do a bunch of mallocs
         printf(  "the break is now 0x%08x\n", (int) sbrk(0));
-        for (i = 0; i < 32; i++) {
+        for (i = 0; i < MLOOPS; i++) {
             printf("malloc'ing 0x%x bytes...", JUMP);
             fflush(stdout);
             sleep(2);
-            p1 = malloc(JUMP);
-            if (NULL == p1)
+            mvals[i] = malloc(JUMP);
+            if (NULL == mvals[i])
                 exit(-1);
-            printf("got 0x%08x, ",(int)p1);
+            printf("got 0x%08x, ", (int) mvals[i]);
             printf("the break is now 0x%08x\n", (int) sbrk(0));
         }
+
+        printf("The break has grown!\n");
+        printf("Dramatic pause...\n");
+        sleep(3);
+
+        // do a bunch of frees
+        for (j = i-1; j >= 0; j--) {
+            printf("freeing 0x%08x....", (int) mvals[j]);
+            fflush(stdout);
+            sleep(2);
+            free(mvals[j]);
+            printf("the break is now 0x%08x\n", (int) sbrk(0));
+        }
+
         break;
 
     case 5:
