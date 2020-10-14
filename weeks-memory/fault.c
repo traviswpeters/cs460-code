@@ -24,6 +24,7 @@ char *global_var = "abcdef";
 #define MLOOPS 32
 
 char cstring[100];
+char pfstring[100];
 
 void bigstack(void) {
     char big_array[STACKJUMP];
@@ -191,19 +192,24 @@ int main(int argc, char *argv[]) {
         break;
 
     case 5:
-        // printf("trying to read from below the stack...0x%08x\n", (int) belowstack);
-        // printf("(0x%08x bytes below the address of the local variable 'stack')\n", STACKJUMP);
-        // fflush(stdout);
-        // sleep(2);
-        // c =  *(char*) belowstack;   // try reading from this address...
-        // printf("ok\n");
+        // format command to get info current proc's page faults
+        // -> Thanks, https://www.cyberciti.biz/faq/linux-command-to-see-major-minor-pagefaults/
+        sprintf(pfstring, "ps -o min_flt,maj_flt %d\n", pid);
 
         for (i = 0; i < 32; i++) {
+            // examine minor/major page faults each time we try to read/write further down in the addr space.
+            system(pfstring);
+
             printf("trying to read from below the stack...0x%08x\n", (int) belowstack);
             printf("(0x%08x bytes below the address of the local variable 'stack')\n", STACKJUMP*(i+1));
             fflush(stdout);
             sleep(2);
             c =  *(char*) belowstack;   // try reading from this address...
+            printf("ok\n");
+
+            printf("trying to write below the stack...0x%08x\n", (int) belowstack);
+            sleep(2);
+            *((char*) belowstack) = 'a';  // try writing to this address...
             printf("ok\n");
 
             belowstack = belowstack - STACKJUMP;
