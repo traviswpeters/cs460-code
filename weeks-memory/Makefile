@@ -14,7 +14,8 @@ SRCS=$(wildcard *.c)
 OBJS=$(SRCS:.c=.o)
 
 # executables
-EXECS = fault psize32 psize64 new_heap #strider brkfun argprobe vfork vfork-abuse vfork-heap sharing nullpointer
+EXECS = fault psize32 psize64 new_heap strider \
+		brkfun vfork vfork-abuse vfork-heap sharing nullpointer
 
 .PHONY: all clean
 
@@ -50,10 +51,9 @@ new_heap:
 strider: strider.c
 	-$(CC) $(CFLAGS) -o $@ $^
 
-brkfun: brkfun.c
-	-$(CC) $(CFLAGS) -o $@ $^
+### Advanced Topics
 
-argprobe: argprobe.c
+brkfun: brkfun.c
 	-$(CC) $(CFLAGS) -o $@ $^
 
 vfork: vfork.c
