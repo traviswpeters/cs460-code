@@ -27,7 +27,7 @@ int main(int argc, char *argv[], char* envp[]) {
     }
 
     // use pmap to print the (userspace) memory layout of this process
-    sprintf(cstring,"pmap -X %d\n", pid);
+    sprintf(cstring,"pmap -X %d | tac\n", pid);
     printf("-> Running pmap....\n\n");
     system(cstring);
 
