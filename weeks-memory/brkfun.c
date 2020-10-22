@@ -21,12 +21,12 @@ int main(int argc, char *argv[]) {
 
     pid = getpid();
     sprintf(cstring, "more /proc/%d/maps \n", pid);
-    printf("\n\nLooking at the map....\n");
+    printf("\n\nRunning %s.\n\nLooking at the map....\n", argv[0]);
     system(cstring);
     printf("\n\n");
 
     old = sbrk(0);
-    printf("My break is 0x%08x\n",old);
+    printf("My break is 0x%08x\n", (unsigned int)old);
     printf("Does that make sense with memory map?\n");
     sleep(4);
 
@@ -40,14 +40,14 @@ int main(int argc, char *argv[]) {
             printf("rc == %d\n", rc);
 
         new = sbrk(0);
-        printf("new brk is 0x%08x\n", sbrk(0));
+        printf("new brk is 0x%08x\n", (unsigned int)new);
         printf("That's %d (0x%x) bytes higher\n", (int)(new-old), (int) (new-old));
         printf("reading from the new break\n");
         printf("Pausing dramatically...\n");
         sleep(4);
 
-        c= *( (char *) new);
-        printf("success???\n");
+        c = *( (char *) new);
+        printf("success (%d)???\n", c);
 
         sleep(1);
         printf("\n\nRunning pmap....\n");
@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
         rc = (int) brk(&main);
         printf("rc == %d\n", rc);
         new = sbrk(0);
-        printf("new brk is 0x%08x\n", sbrk(0));
+        printf("new brk is 0x%08x\n", (unsigned int)sbrk(0));
     }
 
     return 0;

@@ -19,12 +19,10 @@ char cstring[100];
 int main(int argc, char *argv[]) {
     char c;
     void *nullpointer;
-    void *p1,*p2;
+    void *p1;
     int fd;
-    int i;
     int pid;
     int demo = 0;
-    int rc;
 
     // pull out argument
     if (argc >= 2) {

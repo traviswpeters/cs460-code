@@ -14,9 +14,9 @@ int global = 0;
 
 void vforker(void) {
     int value = 0;
-    int do_vfork = 1;
+    // int do_vfork = 1;
     int pid;
-    int i;
+    // int i;
 
     printf("Hi, I'm the parent %d. Local = %d, global = %d\n", getpid(), value, global);
     printf("vforking a child...\n");
@@ -55,7 +55,7 @@ void sub(void) {
     return;
 }
 
-int main(int argc, char *argv[]) {
+int main(void) {
     sub();
     printf("yahoo---process %d back from sub, calling stacktrasher\n", getpid());
     stacktrasher();

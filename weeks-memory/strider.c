@@ -81,7 +81,7 @@ int main(void) {
         setsize    = stop.ru_maxrss - start.ru_maxrss;
         pagefaults = stop.ru_majflt - start.ru_majflt;
 
-        printf("over %d ``pages'' of size %d:\n%ld usecs (%ld user + %ld system)\n\n",
-               pages, PAGESIZE, ttime, utime,stime);
+        printf("over %d ``pages'' of size %d:\n%ld usecs (%ld user + %ld system)\n%ld setsize\n%ld pagefaults\n\n",
+               pages, PAGESIZE, ttime, utime, stime, setsize, pagefaults);
     }
 }

@@ -18,12 +18,10 @@ char cstring[100];
 
 int main(int argc, char *argv[]) {
     char c;
-    void *p1,*p2;
-    int fd;
+    void *p1;
     int i;
     int pid;
     int demo = 0;
-    int rc;
     int flags;
 
     // pull out argument

@@ -16,10 +16,8 @@ void die(void) {
     exit(-1);
 }
 
-int main(int argc, char *argv[]) {
-    int value = 0;
+int main(void) {
     int pid;
-    int i;
 
     printf("Hi, I'm the parent, and my break is %p\n",sbrk(0));
     printf("vforking a child...\n");
@@ -39,6 +37,6 @@ int main(int argc, char *argv[]) {
     printf("Parent pauses dramatically...\n");
     sleep(8);
     printf("Hi, I'm the parent, and my break is %p\n",sbrk(0));
-    
+
     return 0;
 }

@@ -9,7 +9,8 @@
 #
 
 CC=gcc
-CFLAGS=-ggdb -Wall -Wextra -std=c11 -m32
+# CFLAGS=-ggdb -Wall -Wextra -std=c11 -m32
+CFLAGS=-ggdb -Wall -Wextra -std=gnu11 -m32
 SRCS=$(wildcard *.c)
 OBJS=$(SRCS:.c=.o)
 
